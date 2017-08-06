@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="InspecthelperGUI.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="pythonPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\Python27\python.exe</Value>
+    </Setting>
+    <Setting Name="SettngsFilePath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">inspecthelper.settings</Value>
+    </Setting>
+    <Setting Name="pythonFile" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">inspecthelper.py</Value>
+    </Setting>
+    <Setting Name="PreferencesPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\InspecthelperGUI</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
