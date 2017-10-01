@@ -6,10 +6,10 @@
       <Value Profile="(Default)">C:\Python27\python.exe</Value>
     </Setting>
     <Setting Name="SettngsFilePath" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">inspecthelper.settings</Value>
+      <Value Profile="(Default)">inspecthelper\inspecthelper.settings</Value>
     </Setting>
     <Setting Name="pythonFile" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">inspecthelper.py</Value>
+      <Value Profile="(Default)">inspecthelper\inspecthelper.py</Value>
     </Setting>
     <Setting Name="PreferencesPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">D:\InspecthelperGUI</Value>

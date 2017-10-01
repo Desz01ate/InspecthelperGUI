@@ -2,7 +2,7 @@
 /*
  * Currently working on PACKING all file in one process (single execution)
  * v1.2 note, FUCK YOU GARENA!
- * 
+ * v1.3 working as it should be to serve to lord of nvidiainspector
  * 
  * */
 using System;
@@ -31,6 +31,7 @@ namespace InspecthelperGUI
         {
             Console.WriteLine("Init");
             InitializeComponent();
+            Directory.CreateDirectory($@"{Path.Combine(Path.GetTempPath(), "inspecthelper")}");
             if (!File.Exists($@"{Properties.Settings.Default.pythonPath}"))
             {
                 if (MessageBox.Show($@"Python 2.7 is required to run this application.{"\n"}Do you want to go to official Python website for installer?", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
@@ -41,11 +42,13 @@ namespace InspecthelperGUI
             }
             if (!File.Exists(settingfile))
             {
+                
                 var tempFile = File.Create(settingfile);
                 using (StreamWriter sw = new StreamWriter(tempFile))
                 {
-                    sw.WriteLine($@"### ONLY PROCESSES NAME ARE GIVEN BELOW THIS LINE IN FORM OF NAME,PROCESS NAME.EXE , ANY LINE WITH SHARP(#) WOULD BE IGNORED [Note that the order of the processes is affect the performance, please set the first to be what often use] ###");
-                    sw.WriteLine($@"#ExampleName,example.exe");
+                    //sw.WriteLine($@"### ONLY PROCESSES NAME ARE GIVEN BELOW THIS LINE IN FORM OF NAME,PROCESS NAME.EXE , ANY LINE WITH SHARP(#) WOULD BE IGNORED [Note that the order of the processes is affect the performance, please set the first to be what often use] ###");
+                    //sw.WriteLine($@"#ExampleName,example.exe");
+                    sw.WriteLine($"#Application Name,Process Name");
                 }
             }
             File.SetAttributes(settingfile, File.GetAttributes(settingfile) | FileAttributes.ReadOnly);
@@ -97,7 +100,6 @@ namespace InspecthelperGUI
                 GoingOn = false;
                 p.Kill();
                 processExecuted("python");
-                
                 button3.Visible = false;
                 button1.Text = "START";
                 textBox1.Enabled = true;
@@ -130,7 +132,9 @@ namespace InspecthelperGUI
         private void button2_Click(object sender, EventArgs e)
         {
             File.SetAttributes(settingfile, File.GetAttributes(settingfile) & ~FileAttributes.ReadOnly);
-            Process.Start("notepad.exe", $@"{settingfile}");
+            //Process.Start("notepad.exe", $@"{settingfile}");
+            AppSettings frm = new AppSettings();
+            frm.Show();
         }
         private List<INSPECTPROCESS> fileReader(string path)
         {
@@ -140,7 +144,8 @@ namespace InspecthelperGUI
                 var shouldrewrite = false;
                 var reader = new System.IO.StreamReader(path);
                 var line = "";
-                var tempwriter = new List<string> { $"### ONLY PROCESSES NAME ARE GIVEN BELOW THIS LINE IN FORM OF NAME,PROCESS NAME.EXE , ANY LINE WITH SHARP(#) WOULD BE IGNORED [Note that the order of the processes is affect the performance, please set the first to be what often use] ###" };
+                //var tempwriter = new List<string> { $"### ONLY PROCESSES NAME ARE GIVEN BELOW THIS LINE IN FORM OF NAME,PROCESS NAME.EXE , ANY LINE WITH SHARP(#) WOULD BE IGNORED [Note that the order of the processes is affect the performance, please set the first to be what often use] ###" };
+                var tempwriter = new List<string> { $"#Process Name,Application Name"};
                 while ((line = reader.ReadLine()) != null)
                 {
                     if (line == "")
@@ -295,33 +300,41 @@ namespace InspecthelperGUI
         {
             base.OnFormClosing(e);
             File.SetAttributes(settingfile, File.GetAttributes(settingfile) | FileAttributes.ReadOnly);
-            if(MessageBox.Show("InspecthelperGUI will be terminate if you close it now, continue?",Application.ProductName,MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (GoingOn == true)
             {
-                try
+                if (MessageBox.Show("InspecthelperGUI will be terminate if you close it now, continue?", Application.ProductName, MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    p.Kill();
-                }
-                catch (Exception)
-                {
+                    try
+                    {
+                        p.Kill();
+                    }
+                    catch (Exception)
+                    {
 
+                    }
+                    finally
+                    {
+                        Dispose(true);
+                        Environment.Exit(0);
+                    }
                 }
-                finally
+                else
                 {
-                    Dispose(true);
-                    Environment.Exit(0);
+                    e.Cancel = true;
                 }
+                //Environment.Exit(0);
             }
-            else
-            {
-                e.Cancel = true;
-            }
-            //Environment.Exit(0);
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.PreferencesPath = textBox1.Text;
             Properties.Settings.Default.Save();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -34,7 +34,7 @@ namespace InspecthelperGUI.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("inspecthelper.settings")]
+        [global::System.Configuration.DefaultSettingValueAttribute("inspecthelper\\inspecthelper.settings")]
         public string SettngsFilePath {
             get {
                 return ((string)(this["SettngsFilePath"]));
@@ -43,7 +43,7 @@ namespace InspecthelperGUI.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("inspecthelper.py")]
+        [global::System.Configuration.DefaultSettingValueAttribute("inspecthelper\\inspecthelper.py")]
         public string pythonFile {
             get {
                 return ((string)(this["pythonFile"]));
