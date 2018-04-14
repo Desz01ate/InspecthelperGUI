@@ -138,7 +138,7 @@ namespace InspecthelperGUI
                     File.WriteAllLines(setting_path, File.ReadAllLines(setting_path).Where(l => !string.IsNullOrWhiteSpace(l)));
                     DGVRendering(dataGridView1, setting_path);
                 }
-                catch (Exception ex)
+                catch
                 {
                     reader.Close();
                 }
@@ -182,7 +182,7 @@ namespace InspecthelperGUI
                     File.WriteAllLines(setting_path, File.ReadAllLines(setting_path).Where(l => !string.IsNullOrWhiteSpace(l)));
                     DGVRendering(dataGridView1, setting_path);
                 }
-                catch (Exception ex)
+                catch
                 {
                     reader.Close();
                 }
